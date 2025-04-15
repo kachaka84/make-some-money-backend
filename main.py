@@ -3,42 +3,28 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Разреши достъп от Vercel
-origins = [
-    "https://make-some-money.vercel.app",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+def predict_result(home, away):
+    home = home.lower()
+    away = away.lower()
+    if "реал" in home or "байерн" in home:
+        return "1"
+    elif "цска" in away or "барселона" in away:
+        return "2"
+    else:
+        return "X"
+
 @app.get("/matches")
 def get_matches():
-    return {
-        "fixtures": [
-            {
-                "home": "Левски",
-                "away": "ЦСКА",
-                "date": "2025-04-16",
-                "time": "18:30",
-                "prediction": "Под 2.5 гола"
-            },
-            {
-                "home": "Реал Мадрид",
-                "away": "Барселона",
-                "date": "2025-04-16",
-                "time": "21:00",
-                "prediction": "Над 2.5 гола"
-            },
-            {
-                "home": "Байерн",
-                "away": "Борусия Дортмунд",
-                "date": "2025-04-16",
-                "time": "19:45",
-                "prediction": "3.5+ гола"
-            }
-        ]
-    }
+    matches = [
+        {"home": "Левски", "away": "ЦСКА", "date": "2025-04-16"},
+        {"home": "Реал Мадрид", "away": "Барселона", "date": "2025-04-16"},
+        {"home": "Байерн", "away": "Борусия Дортмунд", "date": "2025-04-16"},
+        {"home": "Луд
