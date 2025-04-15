@@ -27,4 +27,8 @@ def get_matches():
         {"home": "Левски", "away": "ЦСКА", "date": "2025-04-16"},
         {"home": "Реал Мадрид", "away": "Барселона", "date": "2025-04-16"},
         {"home": "Байерн", "away": "Борусия Дортмунд", "date": "2025-04-16"},
-        {"home": "Луд
+        {"home": "Лудогорец", "away": "Берое", "date": "2025-04-16"}
+    ]
+    for match in matches:
+        match["prediction"] = predict_result(match["home"], match["away"])
+    return matches
