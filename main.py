@@ -7,13 +7,17 @@ load_dotenv()
 app = FastAPI()
 
 API_KEY = os.getenv("API_FOOTBALL_KEY")
-API_URL = "https://v3.football.api-sports.io/fixtures?date=2025-04-15"
+API_URL = "https://api-football-v1.p.rapidapi.com/v3/fixtures?date=2025-04-15"
 
 headers = {
-    "x-apisports-key": API_KEY
+    "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+    "x-rapidapi-key": API_KEY
 }
 
 @app.get("/matches")
 def get_matches():
-    response = requests.get(API_URL, headers=headers)
-    return response.json()
+    try:
+        response = requests.get(API_URL, headers=headers)
+        return response.json()
+    except Exception as e:
+        return {"error": str(e)}
