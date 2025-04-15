@@ -3,11 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# CORS настройка
+# Разреши достъп от Vercel
+origins = [
+    "https://make-some-money.vercel.app",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://make-some-money.vercel.app"],
-    allow_credentials=True,
+    allow_origins=origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
